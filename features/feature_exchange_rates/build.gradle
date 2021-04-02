@@ -1,0 +1,29 @@
+apply from: "$rootDir/features/feature.gradle"
+
+def deps = [
+    "constraintlayout"
+]
+
+deps.forEach { dep ->
+    apply from: "$rootDir/deps/${dep}.gradle"
+}
+
+def domains = [
+    "domain_common",
+    "domain_exchange_rates"
+]
+
+def testLibs = [
+    "lib_database_test",
+    "lib_remote_test"
+]
+
+dependencies {
+    domains.forEach { domain ->
+        implementation project(":$domain")
+    }
+
+    testLibs.forEach { testLib ->
+        androidTestImplementation project(":$testLib")
+    }
+}

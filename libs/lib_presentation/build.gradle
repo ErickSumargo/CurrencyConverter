@@ -1,0 +1,49 @@
+apply from: "$rootDir/libs/lib.gradle"
+
+def plugins = [
+    "kotlin-kapt",
+    "dagger.hilt.android.plugin"
+]
+
+plugins.forEach { plugin ->
+    apply plugin: plugin
+}
+
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+def deps = [
+    "constraintlayout",
+    "coroutines",
+    "dagger",
+    "fragment",
+    "hilt",
+    "lifecycle",
+    "material",
+    "recyclerview"
+]
+
+deps.forEach { dep ->
+    apply from: "$rootDir/deps/${dep}.gradle"
+}
+
+def domains = [
+    "domain_common"
+]
+
+def libs = [
+    "lib_threading"
+]
+
+dependencies {
+    domains.forEach { domain ->
+        implementation project(":$domain")
+    }
+
+    libs.forEach { lib ->
+        implementation project(":$lib")
+    }
+}

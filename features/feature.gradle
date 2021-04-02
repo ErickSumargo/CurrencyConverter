@@ -1,0 +1,101 @@
+def plugins = [
+    "com.android.library",
+    "kotlin-android",
+    "kotlin-kapt",
+    "dagger.hilt.android.plugin"
+]
+
+plugins.forEach { plugin ->
+    apply plugin: plugin
+}
+
+apply from: rootProject.file("plugins/jacoco.gradle")
+
+hilt {
+    enableExperimentalClasspathAggregation = true
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+android {
+    compileSdkVersion sdk.compile
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion sdk.min
+        targetSdkVersion sdk.target
+
+        consumerProguardFiles "proguard-rules.pro"
+        testInstrumentationRunner "${rootProject.applicationId}.lib.presentation.test.runner.HiltTestRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        freeCompilerArgs = [
+            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=kotlinx.coroutines.FlowPreview",
+            "-Xopt-in=kotlinx.coroutines.InternalCoroutinesApi",
+            "-Xopt-in=kotlin.time.ExperimentalTime"
+        ]
+
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+
+        error("VisibleForTests")
+    }
+
+    packagingOptions {
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+        exclude "META-INF/*.kotlin_module"
+    }
+}
+
+def deps = [
+    "dagger",
+    "fragment",
+    "hilt",
+    "navigation",
+    "truth"
+]
+
+deps.forEach { dep ->
+    apply from: "$rootDir/deps/${dep}.gradle"
+}
+
+def libs = [
+    "lib_presentation",
+    "lib_threading"
+]
+
+def testLibs = [
+    "lib_presentation_test"
+]
+
+dependencies {
+    libs.forEach { lib ->
+        implementation project(":$lib")
+    }
+
+    testLibs.forEach { testLib ->
+        androidTestImplementation project(":$testLib")
+    }
+}

@@ -1,0 +1,104 @@
+def plugins = [
+    "com.android.application",
+    "kotlin-android",
+    "kotlin-kapt",
+    "dagger.hilt.android.plugin"
+]
+
+plugins.forEach { plugin ->
+    apply plugin: plugin
+}
+
+android {
+    compileSdkVersion sdk.compile
+
+    defaultConfig {
+        applicationId rootProject.applicationId
+        minSdkVersion sdk.min
+        targetSdkVersion sdk.target
+        versionCode sdk.code
+        versionName sdk.version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+
+            minifyEnabled false
+            testCoverageEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    packagingOptions {
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+    }
+}
+
+def deps = [
+    "dagger",
+    "hilt",
+    "leakcanary",
+    "navigation",
+    "okhttp",
+    "retrofit"
+]
+
+deps.forEach { dep ->
+    apply from: "$rootDir/deps/${dep}.gradle"
+}
+
+def features = [
+    "feature_exchange_rates"
+]
+
+def domains = [
+    "domain_common",
+    "domain_exchange_rates"
+]
+
+def libs = [
+    "lib_database",
+    "lib_presentation",
+    "lib_remote",
+    "lib_threading"
+]
+
+dependencies {
+    features.forEach { feature ->
+        implementation project(":$feature")
+    }
+
+    domains.forEach { domain ->
+        implementation project(":$domain")
+    }
+
+    libs.forEach { lib ->
+        implementation project(":$lib")
+    }
+}
