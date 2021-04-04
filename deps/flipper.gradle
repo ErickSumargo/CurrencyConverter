@@ -1,0 +1,7 @@
+dependencies {
+    debugImplementation "com.facebook.flipper:flipper:$deps.flipper"
+    debugImplementation "com.facebook.flipper:flipper-network-plugin:$deps.flipper"
+    debugImplementation "com.facebook.flipper:flipper-leakcanary-plugin:$deps.flipper"
+
+    debugImplementation "com.facebook.soloader:soloader:$deps.soloader"
+}

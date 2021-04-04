@@ -62,6 +62,7 @@ android {
 
 def deps = [
     "dagger",
+    "flipper",
     "hilt",
     "leakcanary",
     "navigation",
@@ -84,6 +85,7 @@ def domains = [
 
 def libs = [
     "lib_database",
+    "lib_preference",
     "lib_presentation",
     "lib_remote",
     "lib_threading"

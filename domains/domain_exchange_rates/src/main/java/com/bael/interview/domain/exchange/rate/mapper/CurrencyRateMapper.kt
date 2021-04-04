@@ -15,23 +15,13 @@ internal class CurrencyRateMapper @Inject constructor() :
 
     override fun map(data: ExchangeRatesResponse): CurrencyRate {
         return CurrencyRate(
-            rates = listOf(
+            rates = data.quotes.map { (currency, rate) ->
                 ExchangeRate(
-                    id = "AED",
-                    rate = data.quotes.USDAED,
-                    timestamp = data.timestamp
-                ),
-                ExchangeRate(
-                    id = "AFN",
-                    rate = data.quotes.USDAFN,
-                    timestamp = data.timestamp
-                ),
-                ExchangeRate(
-                    id = "ALL",
-                    rate = data.quotes.USDALL,
+                    id = currency.drop(n = 3),
+                    rate = rate,
                     timestamp = data.timestamp
                 )
-            )
+            }
         )
     }
 }

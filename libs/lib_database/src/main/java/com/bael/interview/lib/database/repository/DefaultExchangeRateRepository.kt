@@ -21,4 +21,14 @@ internal class DefaultExchangeRateRepository @Inject constructor(
         return database.exchangeRateDao
             .loadExchangeRates()
     }
+
+    override suspend fun loadExchangeRates(page: Int, limit: Int): List<ExchangeRate> {
+        return database.exchangeRateDao
+            .loadExchangeRates(page, limit)
+    }
+
+    override suspend fun loadExchangeRate(currency: String): ExchangeRate {
+        return database.exchangeRateDao
+            .loadExchangeRate(currency)
+    }
 }

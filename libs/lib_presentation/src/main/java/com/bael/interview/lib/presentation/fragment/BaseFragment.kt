@@ -54,7 +54,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<S, E>, S, E> : 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             onViewLoaded(savedInstanceState)
         }
     }
@@ -63,16 +63,22 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<S, E>, S, E> : 
 
     private fun observeState() {
         viewModel.stateFlow
-            .flowWithLifecycle(lifecycle, minActiveState = RESUMED)
+            .flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = RESUMED
+            )
             .onEach(::render)
-            .launchIn(scope = lifecycleScope)
+            .launchIn(scope = viewLifecycleOwner.lifecycleScope)
     }
 
     private fun observeEvent() {
         viewModel.eventFlow
-            .flowWithLifecycle(lifecycle, minActiveState = RESUMED)
+            .flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = RESUMED
+            )
             .onEach(::action)
-            .launchIn(scope = lifecycleScope)
+            .launchIn(scope = viewLifecycleOwner.lifecycleScope)
     }
 
     abstract suspend fun render(state: S)

@@ -1,5 +1,9 @@
 package com.bael.interview.feature.exchange.rates.screen.home
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.bael.interview.lib.presentation.test.fragment.BaseFragmentTest
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
@@ -15,6 +19,10 @@ internal class UITest : BaseFragmentTest() {
 
     @Test
     fun test() {
-        launch<UI> { view -> }
+        launch<UI> {
+            onView(
+                withText("hello")
+            ).check(matches(isDisplayed()))
+        }
     }
 }

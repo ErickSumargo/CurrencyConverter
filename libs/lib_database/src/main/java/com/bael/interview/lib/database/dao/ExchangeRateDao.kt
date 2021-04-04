@@ -18,4 +18,10 @@ interface ExchangeRateDao {
 
     @Query("SELECT * FROM exchange_rate")
     suspend fun loadExchangeRates(): List<ExchangeRate>
+
+    @Query("SELECT * FROM exchange_rate LIMIT :limit OFFSET (:page - 1) * :limit")
+    suspend fun loadExchangeRates(page: Int, limit: Int): List<ExchangeRate>
+
+    @Query("SELECT * FROM exchange_rate WHERE id = :currency")
+    suspend fun loadExchangeRate(currency: String): ExchangeRate
 }

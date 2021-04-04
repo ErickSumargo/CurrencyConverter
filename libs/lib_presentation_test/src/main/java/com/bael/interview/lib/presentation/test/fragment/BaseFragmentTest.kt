@@ -44,7 +44,7 @@ abstract class BaseFragmentTest {
 
     abstract fun setupTest()
 
-    protected inline fun <reified F : BaseFragment<*, *, *>> launch(
+    protected inline fun <reified F : BaseFragment<*, *, *, *>> launch(
         crossinline test: (Fragment) -> Unit
     ) {
         launchFragmentInHiltContainer<F> {

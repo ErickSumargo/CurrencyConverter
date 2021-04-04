@@ -7,6 +7,8 @@ import java.io.Serializable
  */
 
 data class CurrencyConversion(
-    val source: Pair<String, Double>,
-    val rates: List<Pair<String, Double>>
+    val target: Currency,
+    val rate: Double,
+    val amount: Double,
+    val source: Currency,
 ) : Serializable

@@ -71,6 +71,7 @@ android {
 
 def deps = [
     "dagger",
+    "espresso",
     "fragment",
     "hilt",
     "navigation",

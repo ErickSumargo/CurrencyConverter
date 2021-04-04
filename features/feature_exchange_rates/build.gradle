@@ -1,7 +1,8 @@
 apply from: "$rootDir/features/feature.gradle"
 
 def deps = [
-    "constraintlayout"
+    "constraintlayout",
+    "swiperefreshlayout"
 ]
 
 deps.forEach { dep ->
@@ -13,6 +14,10 @@ def domains = [
     "domain_exchange_rates"
 ]
 
+def libs = [
+    "lib_preference"
+]
+
 def testLibs = [
     "lib_database_test",
     "lib_remote_test"
@@ -21,6 +26,10 @@ def testLibs = [
 dependencies {
     domains.forEach { domain ->
         implementation project(":$domain")
+    }
+
+    libs.forEach { lib ->
+        implementation project(":$lib")
     }
 
     testLibs.forEach { testLib ->

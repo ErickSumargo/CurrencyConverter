@@ -1,6 +1,7 @@
 package com.bael.interview.domain.exchange.rate.usecase
 
 import com.bael.interview.domain.common.response.Response
+import com.bael.interview.domain.exchange.rate.model.Currency
 import com.bael.interview.domain.exchange.rate.model.CurrencyConversion
 import kotlinx.coroutines.flow.Flow
 
@@ -10,5 +11,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ConvertCurrencyUseCase {
 
-    operator fun invoke(amount: Double, source: String): Flow<Response<CurrencyConversion>>
+    operator fun invoke(
+        amount: Double,
+        source: Currency,
+        target: Currency
+    ): Flow<Response<CurrencyConversion>>
 }

@@ -15,4 +15,11 @@ sealed class Response<out T> : Serializable {
     object Empty : Response<Nothing>()
 
     data class Success<T>(val data: T) : Response<T>()
+
+    operator fun invoke(): T? {
+        return when (this) {
+            is Success -> data
+            else -> null
+        }
+    }
 }

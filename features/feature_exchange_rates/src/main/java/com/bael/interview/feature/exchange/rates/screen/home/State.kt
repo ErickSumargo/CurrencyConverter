@@ -1,8 +1,8 @@
 package com.bael.interview.feature.exchange.rates.screen.home
 
 import com.bael.interview.domain.common.response.Response
+import com.bael.interview.domain.exchange.rate.model.Currency
 import com.bael.interview.domain.exchange.rate.model.CurrencyConversion
-import com.bael.interview.domain.exchange.rate.model.CurrencySymbol
 import com.bael.interview.lib.presentation.state.BaseState
 
 /**
@@ -11,7 +11,7 @@ import com.bael.interview.lib.presentation.state.BaseState
 
 internal data class State(
     val amount: Double,
-    val source: String,
-    val currencySymbol: Response<List<CurrencySymbol>>,
-    val currencyConversion: Response<CurrencyConversion>
+    val source: Currency,
+    val currencyResponse: Response<List<Currency>>,
+    val currencyConversionResponses: List<Response<List<CurrencyConversion>>>
 ) : BaseState()
