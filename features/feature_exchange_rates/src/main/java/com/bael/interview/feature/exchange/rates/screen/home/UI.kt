@@ -2,6 +2,7 @@ package com.bael.interview.feature.exchange.rates.screen.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -70,7 +71,8 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
         return inflate(inflater, container, false)
     }
 
-    override suspend fun onViewLoaded(savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupView()
         viewModel.loadCurrency()
     }

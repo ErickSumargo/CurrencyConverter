@@ -52,15 +52,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<S, E>, S, E> : 
 
     abstract fun createView(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            onViewLoaded(savedInstanceState)
-        }
-    }
-
-    abstract suspend fun onViewLoaded(savedInstanceState: Bundle?)
-
     private fun observeState() {
         viewModel.stateFlow
             .flowWithLifecycle(

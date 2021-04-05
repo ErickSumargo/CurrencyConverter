@@ -3,12 +3,9 @@ package com.bael.interview.lib.presentation.test.fragment
 import com.bael.interview.lib.presentation.fragment.BaseFragment
 import com.bael.interview.lib.threading.Thread
 import dagger.hilt.android.testing.HiltAndroidRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -28,8 +25,6 @@ abstract class BaseFragmentTest {
     @Before
     internal fun setup() {
         hiltRule.inject()
-        Dispatchers.setMain(dispatcher = thread.main)
-
         setupTest()
     }
 
@@ -49,9 +44,7 @@ abstract class BaseFragmentTest {
 
     @After
     internal fun tearDown() {
-        Dispatchers.resetMain()
         thread.reset()
-
         clearTest()
     }
 
