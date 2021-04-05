@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 fun Fragment.readDrawable(@DrawableRes resId: Int): Drawable {

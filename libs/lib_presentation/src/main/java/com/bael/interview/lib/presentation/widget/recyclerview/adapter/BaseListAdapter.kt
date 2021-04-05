@@ -9,7 +9,7 @@ import com.bael.interview.lib.presentation.widget.recyclerview.adapter.cell.Base
 import kotlin.math.ceil
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 abstract class BaseListAdapter<I : Any, C : BaseCell<*, I>>(

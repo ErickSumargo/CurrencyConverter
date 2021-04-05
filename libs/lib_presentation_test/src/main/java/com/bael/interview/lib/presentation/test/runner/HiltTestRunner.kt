@@ -6,7 +6,7 @@ import androidx.test.runner.AndroidJUnitRunner
 import dagger.hilt.android.testing.HiltTestApplication
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 class HiltTestRunner : AndroidJUnitRunner() {

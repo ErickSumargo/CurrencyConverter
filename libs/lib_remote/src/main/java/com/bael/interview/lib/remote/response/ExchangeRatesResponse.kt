@@ -4,7 +4,7 @@ import com.bael.interview.lib.remote.model.ErrorService
 import com.google.gson.annotations.SerializedName
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 data class ExchangeRatesResponse(

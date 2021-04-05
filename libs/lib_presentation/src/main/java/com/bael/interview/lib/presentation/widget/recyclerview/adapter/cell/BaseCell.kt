@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewbinding.ViewBinding
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 abstract class BaseCell<VB : ViewBinding, I : Any>(

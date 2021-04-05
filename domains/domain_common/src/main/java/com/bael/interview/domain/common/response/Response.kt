@@ -3,7 +3,7 @@ package com.bael.interview.domain.common.response
 import java.io.Serializable
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 sealed class Response<out T> : Serializable {

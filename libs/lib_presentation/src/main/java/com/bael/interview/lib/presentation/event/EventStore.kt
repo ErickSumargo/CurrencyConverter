@@ -6,7 +6,7 @@ import com.bael.interview.domain.common.store.Store
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 internal class EventStore<E> : Store<E> {

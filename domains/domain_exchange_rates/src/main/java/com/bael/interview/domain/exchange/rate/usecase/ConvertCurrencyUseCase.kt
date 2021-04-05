@@ -6,7 +6,7 @@ import com.bael.interview.domain.exchange.rate.model.CurrencyConversion
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 interface ConvertCurrencyUseCase {

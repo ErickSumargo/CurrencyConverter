@@ -12,7 +12,7 @@ import org.junit.Rule
 import javax.inject.Inject
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 abstract class BaseFragmentTest {

@@ -5,7 +5,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 class OnSpinnerItemSelectedListener(

@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import javax.inject.Inject
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 class DefaultThread @Inject constructor() : Thread {

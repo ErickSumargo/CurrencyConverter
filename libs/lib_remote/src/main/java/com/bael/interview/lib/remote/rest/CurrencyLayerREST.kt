@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 interface CurrencyLayerREST {

@@ -7,7 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat.getDrawable
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 fun Context.drawable(@DrawableRes resId: Int): Drawable {

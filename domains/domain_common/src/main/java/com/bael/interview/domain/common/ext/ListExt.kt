@@ -4,7 +4,7 @@ import com.bael.interview.domain.common.response.Response
 import com.bael.interview.domain.common.response.Response.Success
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 fun <T> List<Response<T>>.findSuccess(): Success<T>? {

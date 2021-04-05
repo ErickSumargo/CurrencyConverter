@@ -9,7 +9,7 @@ import com.bael.interview.feature.exchange.rates.databinding.CellCurrencyConvers
 import com.bael.interview.lib.presentation.widget.recyclerview.adapter.BaseListAdapter
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 internal class CurrencyConversionAdapter(

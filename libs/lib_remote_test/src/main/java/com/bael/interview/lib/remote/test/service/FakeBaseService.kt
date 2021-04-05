@@ -8,7 +8,7 @@ import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 internal abstract class FakeBaseService<T> : RemoteService<T> {

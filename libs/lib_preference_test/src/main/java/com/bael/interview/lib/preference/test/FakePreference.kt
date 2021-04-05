@@ -6,7 +6,7 @@ import com.bael.interview.lib.preference.Preference
 import javax.inject.Inject
 
 /**
- * Created by ErickSumargo on 01/04/21.
+ * Created by ErickSumargo on 04/04/21.
  */
 
 internal class FakePreference @Inject constructor() : Preference {
