@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="amount">Amount</string>
+    <string name="theme">Theme</string>
     <string name="try_again">Try again</string>
 </resources>

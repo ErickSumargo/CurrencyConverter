@@ -10,8 +10,8 @@ plugins.forEach { plugin ->
 }
 
 def deps = [
-    "dagger",
-    "hilt"
+    "coroutines",
+    "dagger"
 ]
 
 deps.forEach { dep ->

@@ -19,7 +19,10 @@ def libs = [
 ]
 
 def testLibs = [
+    "lib_preference_test",
+    "lib_database",
     "lib_database_test",
+    "lib_remote",
     "lib_remote_test"
 ]
 

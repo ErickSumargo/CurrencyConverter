@@ -6,6 +6,9 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bael.interview.domain.common.response.Response.Error
@@ -32,6 +35,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 
 /**
  * Created by ErickSumargo on 01/04/21.
@@ -40,7 +44,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
     @Inject
-    lateinit var preference: Preference
+    lateinit var preference: Provider<Preference>
 
     override val viewModel: ViewModel by viewModels()
 
@@ -51,7 +55,7 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
             onNextPageListener = { page ->
                 viewModel.loadCurrencyConversion(
                     amount = viewBinding.amountInput.text.toString().toDoubleOrNull() ?: 0.0,
-                    source = viewBinding.currencySpinner.selectedItem as String,
+                    source = (viewBinding.currencySpinner.selectedItem as? String).orEmpty(),
                     page = page,
                     limit = LOAD_CONVERSION_LIMIT
                 )
@@ -72,7 +76,7 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
     }
 
     private fun setupView() {
-        viewBinding.root.also { layout ->
+        viewBinding.swipeRefreshLayout.also { layout ->
             layout.setOnRefreshListener {
                 layout.isRefreshing = false
                 viewModel.loadCurrency()
@@ -98,7 +102,7 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
                 }.onEach { textAmount ->
                     viewModel.loadCurrencyConversion(
                         amount = textAmount.toDouble(),
-                        source = viewBinding.currencySpinner.selectedItem as String,
+                        source = (viewBinding.currencySpinner.selectedItem as? String).orEmpty(),
                         page = 1,
                         limit = LOAD_CONVERSION_LIMIT
                     )
@@ -108,6 +112,12 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
 
         viewBinding.listView.also { view ->
             view.adapter = adapter
+        }
+
+        viewBinding.themeButton.also { button ->
+            button.setOnClickListener {
+                switchTheme()
+            }
         }
     }
 
@@ -128,7 +138,7 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
 
                 viewModel.loadCurrencyConversion(
                     amount = viewBinding.amountInput.text.toString().toDouble(),
-                    source = viewBinding.currencySpinner.selectedItem as String,
+                    source = (viewBinding.currencySpinner.selectedItem as? String).orEmpty(),
                     page = 1,
                     limit = LOAD_CONVERSION_LIMIT
                 )
@@ -188,9 +198,8 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
                 currency.id
             }
             val sourceIndex = currencies.indexOf(
-                state.source.id.takeIf { id ->
-                    id.isNotBlank()
-                } ?: preference.read(key = SOURCE_CURRENCY_PREFERENCE, defaultValue = "")
+                state.source.id.takeIf { id -> id.isNotBlank() }
+                    ?: preference.get().read(key = SOURCE_CURRENCY_PREFERENCE, defaultValue = "")
             )
 
             val adapter = ArrayAdapter(
@@ -225,7 +234,7 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
 
     private fun saveSelectedSourceCurrency(currency: String) {
         lifecycleScope.launch {
-            preference.write(key = SOURCE_CURRENCY_PREFERENCE, currency)
+            preference.get().write(key = SOURCE_CURRENCY_PREFERENCE, currency)
         }
     }
 
@@ -249,9 +258,20 @@ internal class UI : BaseFragment<ScreenHomeBinding, ViewModel, State, Event>() {
         }
     }
 
+    private fun switchTheme() {
+        lifecycleScope.launch {
+            val isDarkTheme = preference.get().read(key = DARK_THEME_PREFERENCE, false)
+            preference.get().write(key = DARK_THEME_PREFERENCE, !isDarkTheme)
+
+            setDefaultNightMode(MODE_NIGHT_YES.takeIf { !isDarkTheme } ?: MODE_NIGHT_NO)
+        }
+    }
+
     private companion object {
         const val LOAD_CONVERSION_LIMIT: Int = 12
 
         const val SOURCE_CURRENCY_PREFERENCE: String = "source_currency"
+
+        const val DARK_THEME_PREFERENCE: String = "dark_theme"
     }
 }

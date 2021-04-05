@@ -70,12 +70,12 @@ android {
 }
 
 def deps = [
+    "coroutines",
     "dagger",
     "espresso",
     "fragment",
     "hilt",
-    "navigation",
-    "truth"
+    "navigation"
 ]
 
 deps.forEach { dep ->
@@ -88,7 +88,8 @@ def libs = [
 ]
 
 def testLibs = [
-    "lib_presentation_test"
+    "lib_presentation_test",
+    "lib_threading_test"
 ]
 
 dependencies {

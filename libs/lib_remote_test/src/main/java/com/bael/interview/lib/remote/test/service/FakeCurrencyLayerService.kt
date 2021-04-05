@@ -8,9 +8,11 @@ import javax.inject.Inject
  * Created by ErickSumargo on 01/04/21.
  */
 
-class FakeCurrencyLayerService @Inject constructor() : CurrencyLayerService {
+internal class FakeCurrencyLayerService @Inject constructor() :
+    FakeBaseService<ExchangeRatesResponse>(),
+    CurrencyLayerService {
 
     override suspend fun fetchExchangeRates(): Result<ExchangeRatesResponse> {
-        TODO()
+        return result
     }
 }

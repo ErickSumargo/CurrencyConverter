@@ -1,10 +1,11 @@
-package com.bael.interview.domain.exchange.rate.usecase
+package com.bael.interview.domain.exchange.rate.interactor
 
 import com.bael.interview.domain.common.response.Response
 import com.bael.interview.domain.common.response.Response.Loading
 import com.bael.interview.domain.common.response.Response.Success
 import com.bael.interview.domain.exchange.rate.model.Currency
 import com.bael.interview.domain.exchange.rate.model.CurrencyConversion
+import com.bael.interview.domain.exchange.rate.usecase.ConvertCurrencyUseCase
 import com.bael.interview.lib.database.repository.ExchangeRateRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +15,7 @@ import javax.inject.Inject
  * Created by ErickSumargo on 01/04/21.
  */
 
-internal class DefaultConvertCurrencyUseCase @Inject constructor(
+internal class ConvertCurrencyInteractor @Inject constructor(
     private val exchangeRateRepository: ExchangeRateRepository
 ) : ConvertCurrencyUseCase {
 

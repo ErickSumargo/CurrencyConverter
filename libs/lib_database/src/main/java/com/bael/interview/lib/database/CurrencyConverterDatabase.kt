@@ -8,4 +8,6 @@ import com.bael.interview.lib.database.dao.ExchangeRateDao
 
 interface CurrencyConverterDatabase {
     val exchangeRateDao: ExchangeRateDao
+
+    fun closeConnection()
 }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 internal class FakeCurrencyConverterDatabase @Inject constructor(
     @ApplicationContext context: Context
 ) : CurrencyConverterDatabase {
-    private val database: CurrencyConverterDatabase by lazy {
+    private val database: CurrencyConverterRoomDatabase by lazy {
         inMemoryDatabaseBuilder(context, CurrencyConverterRoomDatabase::class.java)
             .allowMainThreadQueries()
             .build()
@@ -23,4 +23,8 @@ internal class FakeCurrencyConverterDatabase @Inject constructor(
 
     override val exchangeRateDao: ExchangeRateDao
         get() = database.exchangeRateDao
+
+    override fun closeConnection() {
+        database.close()
+    }
 }

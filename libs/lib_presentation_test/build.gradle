@@ -12,10 +12,12 @@ plugins.forEach { plugin ->
 def deps = [
     "appcompat",
     "coroutines",
+    "coroutines-test",
     "dagger",
     "fragment",
     "fragment-testing",
-    "test"
+    "instrumentation",
+    "material"
 ]
 
 deps.forEach { dep ->

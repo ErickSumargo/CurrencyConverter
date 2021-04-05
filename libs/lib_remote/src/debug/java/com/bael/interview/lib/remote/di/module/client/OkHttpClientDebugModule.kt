@@ -2,12 +2,12 @@ package com.bael.interview.lib.remote.di.module.client
 
 import com.bael.interview.lib.remote.interceptor.CacheControlInterceptor
 import com.bael.interview.lib.remote.interceptor.ContentTypeInterceptor
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
@@ -24,7 +24,7 @@ internal object OkHttpClientDebugModule {
     fun provideOkHttpClient(
         contentTypeInterceptor: ContentTypeInterceptor,
         cacheControlInterceptor: CacheControlInterceptor,
-        flipperOkhttpInterceptor: FlipperOkhttpInterceptor,
+        flipperOkhttpInterceptor: Interceptor,
         cache: Cache
     ): OkHttpClient {
         return OkHttpClient.Builder()

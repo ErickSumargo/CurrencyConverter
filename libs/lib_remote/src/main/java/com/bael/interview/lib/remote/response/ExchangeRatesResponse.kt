@@ -1,5 +1,6 @@
 package com.bael.interview.lib.remote.response
 
+import com.bael.interview.lib.remote.model.ErrorService
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -18,5 +19,7 @@ data class ExchangeRatesResponse(
     @SerializedName("terms")
     val terms: String,
     @SerializedName("timestamp")
-    val timestamp: Long
+    val timestamp: Long,
+    @SerializedName("error")
+    val error: ErrorService?
 )

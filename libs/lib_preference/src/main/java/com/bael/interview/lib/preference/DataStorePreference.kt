@@ -23,7 +23,7 @@ import javax.inject.Inject
  * Created by ErickSumargo on 01/04/21.
  */
 
-internal class DataStorePreference @Inject constructor(
+class DataStorePreference @Inject constructor(
     @ApplicationContext private val context: Context,
     private val thread: Thread
 ) : Preference {

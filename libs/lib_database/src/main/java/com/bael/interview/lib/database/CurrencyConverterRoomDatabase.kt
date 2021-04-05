@@ -11,4 +11,9 @@ import com.bael.interview.lib.database.entity.ExchangeRate
 @Database(entities = [ExchangeRate::class], version = 1)
 abstract class CurrencyConverterRoomDatabase :
     RoomDatabase(),
-    CurrencyConverterDatabase
+    CurrencyConverterDatabase {
+
+    override fun closeConnection() {
+        close()
+    }
+}

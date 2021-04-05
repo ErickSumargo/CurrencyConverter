@@ -1,15 +1,18 @@
 package com.bael.interview.lib.presentation.test.fragment
 
-import androidx.fragment.app.Fragment
 import com.bael.interview.lib.presentation.fragment.BaseFragment
 import com.bael.interview.lib.threading.Thread
 import dagger.hilt.android.testing.HiltAndroidRule
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import javax.inject.Inject
 
 /**
  * Created by ErickSumargo on 01/04/21.
@@ -19,25 +22,13 @@ abstract class BaseFragmentTest {
     @get:Rule
     internal val hiltRule = HiltAndroidRule(this)
 
-    protected lateinit var testDispatcher: TestCoroutineDispatcher
-
-    val thread: Thread = object : Thread {
-        override val main: CoroutineDispatcher
-            get() = testDispatcher
-
-        override val default: CoroutineDispatcher
-            get() = testDispatcher
-
-        override val io: CoroutineDispatcher
-            get() = testDispatcher
-    }
+    @Inject
+    internal lateinit var thread: Thread
 
     @Before
     internal fun setup() {
         hiltRule.inject()
-
-        testDispatcher = TestCoroutineDispatcher()
-        Dispatchers.setMain(testDispatcher)
+        Dispatchers.setMain(dispatcher = thread.main)
 
         setupTest()
     }
@@ -45,11 +36,24 @@ abstract class BaseFragmentTest {
     abstract fun setupTest()
 
     protected inline fun <reified F : BaseFragment<*, *, *, *>> launch(
-        crossinline test: (Fragment) -> Unit
+        crossinline test: (F) -> Unit = {}
     ) {
         launchFragmentInHiltContainer<F> {
-            (this as F).thread = this@BaseFragmentTest.thread
-            test(this)
+            test(this as F)
         }
     }
+
+    protected fun runTest(test: suspend TestCoroutineScope.() -> Unit) {
+        (thread.main as TestCoroutineDispatcher).runBlockingTest(test)
+    }
+
+    @After
+    internal fun tearDown() {
+        Dispatchers.resetMain()
+        thread.reset()
+
+        clearTest()
+    }
+
+    abstract fun clearTest()
 }

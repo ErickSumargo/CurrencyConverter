@@ -1,4 +1,0 @@
-dependencies {
-    testImplementation "com.google.truth:truth:$deps.truth"
-    androidTestImplementation "com.google.truth:truth:$deps.truth"
-}

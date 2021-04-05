@@ -23,7 +23,6 @@ android {
 
 def deps = [
     "dagger",
-    "flipper",
     "okhttp",
     "retrofit"
 ]

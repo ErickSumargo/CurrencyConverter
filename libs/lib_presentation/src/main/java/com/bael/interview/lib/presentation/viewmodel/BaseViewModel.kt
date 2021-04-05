@@ -1,5 +1,7 @@
 package com.bael.interview.lib.presentation.viewmodel
 
+import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.PROTECTED
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.bael.interview.domain.common.store.Store
@@ -48,7 +50,8 @@ abstract class BaseViewModel<S, E>(
         savedStateHandle.set(key, state)
     }
 
-    protected fun render(newState: S) {
+    @VisibleForTesting(otherwise = PROTECTED)
+    fun render(newState: S) {
         stateStore.process(newState)
     }
 
