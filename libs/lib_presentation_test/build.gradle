@@ -11,6 +11,7 @@ plugins.forEach { plugin ->
 
 def deps = [
     "appcompat",
+    "arch-testing",
     "coroutines",
     "coroutines-test",
     "dagger",

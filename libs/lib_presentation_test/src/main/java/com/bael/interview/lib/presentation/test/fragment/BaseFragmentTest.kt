@@ -1,5 +1,6 @@
 package com.bael.interview.lib.presentation.test.fragment
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bael.interview.lib.presentation.fragment.BaseFragment
 import com.bael.interview.lib.threading.Thread
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -17,7 +18,10 @@ import javax.inject.Inject
 
 abstract class BaseFragmentTest {
     @get:Rule
-    internal val hiltRule = HiltAndroidRule(this)
+    internal val hiltRule: HiltAndroidRule = HiltAndroidRule(this)
+
+    @get:Rule
+    internal val instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Inject
     internal lateinit var thread: Thread

@@ -12,6 +12,7 @@ ext {
     deps = [
         // androidx
         appcompat           : "1.1.0",
+        arch                : "2.1.0",
         constraintlayout    : "2.1.0-alpha2",
         datastore           : "1.0.0-alpha08",
         espresso            : "3.1.0",

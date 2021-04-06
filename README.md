@@ -1,3 +1,8 @@
+## MVP
+- The conversion is done by pagination. This promotes efficiency in performance, instead calculating all currencies in one shot.
+- Aside with OkHttpClient's caching mechanism (max-age, max-stale durations), caching is also supported with local Room persisted database.  
+- The app comes with dark theme (theme switching is a mandatory for today's apps IMO)
+
 ## Design Principles
 - [Elegant Objects (EO)](https://www.elegantobjects.org/).
 - [S.O.L.I.D](https://en.wikipedia.org/wiki/SOLID).
@@ -5,14 +10,16 @@
 <br/>
 
 ## Testing Principles
-If you expect me to write tests for every class in isolation, in all respect, <b>I don't do that</b>. Why?
+If you expect me to write tests for every class under isolation, in all respect, I don't do that. Why?
 - We don't capture the behavior of our application we want to preserve.
 - We can't refactor easily because implementation details are exposed to tests.
 - Focusing on methods creates tests that are hard to maintain.
 <br/>
 
-Instead, I do black-box testing. My definition of unit test is the exports from a module, in this case I'm building mobile app with user interface as the contract exposed to the world. Hence, `UI.kt` as my sole SUT. With this,
-- The tests are stable, implementation detail-agnostic, changes if the domain/ behavior is requested to change.
+Instead, I do black-box testing. My definition of unit is the exports from a module, product you're building, in this case I'm building mobile app with user interface as the contract exposed to the world. Hence, `UI.kt` is my sole SUT. With this,
+- The tests are stable.
+- Tests are implementation detail-agnostic.
+- Test only changes if the domain/ behavior is requested to change.
 
 For details, I highly recommend the followings:
 <br/>
@@ -20,10 +27,7 @@ https://dagger.dev/hilt/testing-philosophy.html
 <br/>
 https://www.youtube.com/watch?v=EZ05e7EMOLM
 
-- Also, NO mocking framework! Only fake type for test doubles purpose. The flow execution for production side has to be natural, comprehensive, which explains the code coverage is about 30% with only 2 tests :)
-
-
-Try running the tests via `./gradlew jacocoTestReport`.
+- Also, NO mocking framework! Only fake type for test doubles purpose. The flow execution for production side has to be natural, comprehensive, which explains the coverage is <b>+50%</b> with only 3 tests :)
 
 ## Stacks
 #### Foundation
@@ -51,7 +55,7 @@ Try running the tests via `./gradlew jacocoTestReport`.
 - [Hilt Testing](https://developer.android.com/training/dependency-injection/hilt-testing) - Swapping production dependencies with test doubles. 
 
 #### Health
-- [Flipper](https://fbflipper.com/) - Mobile debugger in advanced.
+- [Flipper](https://fbflipper.com/) - Mobile debugging in advanced.
 - [LeakCanary](https://square.github.io/leakcanary) (Debug) - Memory leak detector.
 - [StrictMode](https://developer.android.com/reference/android/os/StrictMode) (Debug) - Tool for checking if any *should-be-background* operation is done on main thread.
 <br/>
@@ -65,4 +69,6 @@ Try running the tests via `./gradlew jacocoTestReport`.
 Currency Converter adopts [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) with [Unidirectional flow (UDF)](https://en.wikipedia.org/wiki/Unidirectional_Data_Flow_(computer_science)) pattern.
 
 ## How to run
-* Set `API_KEY` key in `gradle.properties` file (either in your user home directory or in the project's root folder) with the [free API Access Key](https://currencylayer.com/documentation).
+- Set `API_KEY` key in `gradle.properties` file (either in your user home directory or in the project's root folder) with the [free API Access Key](https://currencylayer.com/documentation).
+- You can run `./gradlew jacocoTestReport` to execute tests. The reports will be generated at: <br/> 
+`[Project root]/build/coverage-report`

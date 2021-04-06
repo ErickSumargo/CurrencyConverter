@@ -1,7 +1,5 @@
 package com.bael.interview.lib.presentation.viewmodel
 
-import androidx.annotation.VisibleForTesting
-import androidx.annotation.VisibleForTesting.PROTECTED
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.bael.interview.domain.common.store.Store
@@ -9,7 +7,7 @@ import com.bael.interview.lib.presentation.event.EventStore
 import com.bael.interview.lib.presentation.state.StateStore
 import com.bael.interview.lib.threading.Thread
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -37,7 +35,7 @@ abstract class BaseViewModel<S, E>(
         get() = stateStore.stateFlow.onEach(::saveState)
 
     internal val eventFlow: Flow<E>
-        get() = eventStore.stateFlow.drop(count = 1) // null as initial value
+        get() = eventStore.stateFlow.filter { event -> event != null }
 
     protected val state: S
         get() = stateStore.stateFlow.value
@@ -50,8 +48,7 @@ abstract class BaseViewModel<S, E>(
         savedStateHandle.set(key, state)
     }
 
-    @VisibleForTesting(otherwise = PROTECTED)
-    fun render(newState: S) {
+    protected fun render(newState: S) {
         stateStore.process(newState)
     }
 

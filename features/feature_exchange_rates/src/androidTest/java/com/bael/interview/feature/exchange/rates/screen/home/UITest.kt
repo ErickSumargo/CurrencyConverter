@@ -1,7 +1,10 @@
 package com.bael.interview.feature.exchange.rates.screen.home
 
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -15,6 +18,7 @@ import com.bael.interview.lib.presentation.test.fragment.BaseFragmentTest
 import com.bael.interview.lib.remote.response.ExchangeRatesResponse
 import com.bael.interview.lib.remote.test.service.RemoteService
 import dagger.hilt.android.testing.HiltAndroidTest
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matchers.containsString
 import org.junit.Test
@@ -74,9 +78,9 @@ internal class UITest : BaseFragmentTest() {
                     data = ExchangeRatesResponse(
                         privacy = "",
                         quotes = mapOf(
-                            "USDAED" to 0.0,
-                            "USDAFN" to 0.0,
-                            "USDALL" to 0.0,
+                            "USDAED" to 1.0,
+                            "USDAFN" to 1.0,
+                            "USDALL" to 1.0,
                         ),
                         source = "USD",
                         success = true,
@@ -104,6 +108,48 @@ internal class UITest : BaseFragmentTest() {
                     withSpinnerText(containsString("AED"))
                 )
             ).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun givenAmountInput_thenCurrencyConversionShouldShow() {
+        runTest {
+            // given
+            service.submitResponse(
+                response = Success(
+                    data = ExchangeRatesResponse(
+                        privacy = "",
+                        quotes = mapOf(
+                            "USDAED" to 1.0,
+                            "USDAFN" to 1.0,
+                            "USDALL" to 1.0,
+                        ),
+                        source = "USD",
+                        success = true,
+                        terms = "",
+                        timestamp = 0L,
+                        error = null
+                    )
+                )
+            )
+
+            // when
+            launch<UI>()
+
+            onView(
+                withId(R.id.amountInput)
+            ).perform(typeText("1"))
+
+            // then
+            // Workaround to fix some flakiness of recycler view adapter inflating items
+            Thread.sleep(500L)
+
+            onView(
+                withId(R.id.listView)
+            ).check { view, _ ->
+                val adapter = (view as RecyclerView).adapter
+                assertThat(adapter?.itemCount ?: 0, `is`(3))
+            }
         }
     }
 
